@@ -43,7 +43,8 @@ social:
   # Change to your full name.
   # It will be displayed as the default author of the posts and the copyright owner in the Footer
   name: Cypherpunk Samurai
-  email: CypherpunkSamurai@protonmail.com             # change to your email address
+  email: CypherpunkSamurai@protonmail.com
+  # change to your email address
   links:
     # The first element serves as the copyright owner's link
     - https://twitter.com/Cypherpunk_Samurai      # change to your twitter homepage
