@@ -5,7 +5,7 @@ theme: jekyll-theme-chirpy
 
 # Change the following value to '/PROJECT_NAME' ONLY IF your site type is GitHub Pages Project sites
 # and doesn't have a custom domain.
-baseurl: 'https://blog.cypherpunksamurai.eu.org'
+baseurl: ''
 
 # The language of the webpage › http://www.lingoes.net/en/translator/langcode.htm
 # If it has the same name as one of the files in folder `_data/locales`, the layout language will also be changed,
@@ -23,7 +23,7 @@ timezone: Asia/Kolkata
 
 title: Cypherpunk Samurai's Blog                          # the main title
 
-tagline: My Little Corner on the Internet   # it will display as the sub-title
+tagline: My Little Corner of the Internet   # it will display as the sub-title
 
 description: >-                        # used by seo meta and the atom feed
   A Digital Garden of My Knowledge. Here i plant seeds of Code, RE, Pen Testing, and little bit of Designing.
