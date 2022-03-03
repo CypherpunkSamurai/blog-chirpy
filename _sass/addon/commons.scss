@@ -36,6 +36,21 @@ body {
   font-family: 'Source Sans Pro', 'Microsoft Yahei', sans-serif;
 }
 
+// Additional Scrollbar Styles
+::-webkit-scrollbar {
+    height: 4px;
+    width: 8px;
+    background: #323232;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #666666;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #787878;
+}
+
 /* --- Typography --- */
 
 h1 {
