@@ -7,9 +7,9 @@ variables:
 before_script:
   - gem install bundler
   - bundle install
-  - curl -o ../rclone.zip https://downloads.rclone.org/rclone-current-linux-amd64.zip
-  - unzip ../rclone.zip -d rclone-linux-amd64
-  - mv ../rclone-linux-amd64/rclone ./
+  - curl -o ../rclone.zip https://downloads.rclone.org/v1.57.0/rclone-v1.57.0-linux-amd64.zip
+  - unzip ../rclone.zip -d ../
+  - mv ../rclone-v1.57.0-linux-amd64/rclone ./
   - chmod 755 rclone
 
 test:
