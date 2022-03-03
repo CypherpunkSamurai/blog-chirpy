@@ -26,7 +26,7 @@ pages:
   stage: deploy
   script:
   - echo "$RCLONE_CONFIG_B64" | base64 -d > rclone.conf
-  - ./rclone --config rclone.conf sync dropbox_blog_posts:/blog_posts ./_posts
+  - ./rclone -v --config rclone.conf sync dropbox_blog_posts:/blog_posts ./_posts
   - bundle exec jekyll build -d public
   artifacts:
     paths:
