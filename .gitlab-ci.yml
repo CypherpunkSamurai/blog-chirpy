@@ -26,7 +26,8 @@ pages:
   stage: deploy
   script:
   - echo "$RCLONE_CONFIG_B64" | base64 -d > rclone.conf
-  - ./rclone -v --config rclone.conf sync dropbox_blog_posts:/blog_posts ./_posts
+  - ./rclone -v --config rclone.conf --include "*.md" --exclude assets/* sync dropbox_blog_posts:/blog_posts ./_posts
+  - ./rclone -v --config rclone.conf sync dropbox_blog_posts:/blog_posts/assets ./assets
   - ls -a ./_posts
   - (cd _posts && for i in *' '*; do   mv "$i" `echo $i | sed -e 's/ /-/g'`; done)
   - bundle exec jekyll build -d public
