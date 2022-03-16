@@ -198,7 +198,8 @@ We hide files starting with `.proot` with `-H`. Give our user fake root `-0`. We
 Here you can see something you'll be familiar as a linux user. As Common chroot practice here we bind hardware locations to new root.
 
 and on running it we should get....
-![Inside Alpine Proot](/assets/img/Running-Alpine-Chroot-On-Android-(without-Termux)_3.png)
+
+![](/assets/img/Running-Alpine-Chroot-On-Android-(without-Termux)_3.png)
 
 # Objective Complete!
 That's It for this post. I'll save cooler stuff for lated posts. Hope you learnt something new today.
