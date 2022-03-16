@@ -6,10 +6,10 @@ author:
 source: _posts/2022-02-27 Running Alpine Chroot On Android (without Termux).md
 categories: [ NoteDown, Tutorials ] 
 tags: [ android, no-termux, shell, chroot, proot, rootfs ]
-date: 2022-02-25 19:25:04
+date: 2022-02-25 19:25:04 +0000
 ---
 
-# Running Alpine Chroot On Android (without Termux)
+
 This is my post on how I managed to run a alpine chroot system on android without root 🌿
 
 ## Intro
@@ -27,6 +27,10 @@ Let Me Show You How 🪴
 
 ## Required
 * We need Android Terminal Emulator
+  Suggested Terminals:
+  * [Terminal by Alif Software](https://play.google.com/store/apps/details?id=com.qamar.terminal) - (recommended)
+  * [TermOne Plus](https://play.google.com/store/apps/details?id=com.termoneplus)
+  * [Jackpal Android Term](https://play.google.com/store/apps/details?id=jackpal.androidterm)
 * Alpine RootFs tarball
 * Busybox
 
@@ -111,3 +115,101 @@ We use `proot`, like termux.
 > Where do we get proot from? We don't even have apt or pkg 😐
 
 We download publicly available binaries.
+
+One of the repos i found searching for 'android proot binary' was [green-green-avk/build-proot-android](https://github.com/green-green-avk/build-proot-android). It's a fork of [termux/proot](https://github.com/termux/proot) with little patches. You can also use termux/proot.
+
+I downloaded and extracted the proot binary from the repo.
+
+To Download proot:
+```shell
+curl -LO "https://github.com/green-green-avk/build-proot-android/blob/master/packages/proot-android-aarch64.tar.gz"
+```
+To Move binaries:
+```shell
+tar -xvf proot-android-aarch64.tar.gz
+mv ./root/bin/* ~/bin/
+mv ./root/* ~/
+```
+
+Great, proot android is installed. Try running it with `proot` command.
+
+## I'M PROOT
+Now time to proot into our alpine rootfs. To do so we need to do it in multiple steps. So i made a simple script.
+
+```shell
+#!/system/bin/sh
+export PATH=$PATH:$HOME/bin
+
+unset LS_PRELOAD
+
+ROOTFS_PATH=$HOME/alpine
+
+PATH=$PATH:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+proot \
+-r $ROOTFS_PATH \
+-p \
+-H -0 -l -L \
+-b /sys \
+-b /dev \
+-b /proc \
+-b /proc/mounts:/etc/mtab 
+```
+
+Lot's of thigs going on here. Let's go line by line.
+
+> #!/system/bin/sh
+
+We First declare which shell to use when this script file is run.
+
+> export PATH=$PATH:$HOME/bin
+
+We set the path so we can access proot (just in case) `PATH` is not set.
+
+> unset LS_PRELOAD
+
+Unset `LD_PRELOAD` to prevent errors.
+
+> ROOTFS_PATH=$HOME/alpine
+
+We set the folder of the alpine rootfs. Here its in ~/alpine so $HOME/alpine.
+
+> PATH=$PATH:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
+We set the new path that tells proot where to look for binaries.
+
+> proot \
+> -r $ROOTFS_PATH \
+
+We run `proot` with `-r` root location.
+
+> -p \
+
+We don't have root access, so we use higher ports for binding.
+
+> -H -0 -l -L \
+
+We hide files starting with `.proot` with `-H`. Give our user fake root `-0`. We make current user group appear as "uid:gid" with `-i`. We use correct size of lstats `-L`.
+
+> -b /sys \
+> -b /dev \
+> -b /proc \
+> -b /proc/mounts:/etc/mtab 
+
+Here you can see something you'll be familiar as a linux user. As Common chroot practice here we bind hardware locations to new root.
+
+and on running it we should get....
+![Inside Alpine Proot](/assets/img/Running-Alpine-Chroot-On-Android-(without-Termux)_3.png)  
+_Inside Alpine Proot_
+
+# Objective Complete!
+That's It for this post. I'll save cooler stuff for lated posts. Hope you learnt something new today.
+
+Let me know if you liked / disliked the post by leaving a comment below! :)
+
+<font face="monospace">
+<i>
+<b>
+~ **CypherpunkSamurai**
+</b> Logs_Off....
+</i>
+</font>
