@@ -1,25 +1,31 @@
-name: 'Continuous Integration'
-on: 
-  push:
+# Build Jekyll and Deploy to Github Pages
+name: Jekyll site CI
+
+on:
   workflow_dispatch:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
 
 jobs:
-  ci:
+  build:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
 
-    # Use GitHub Actions' cache to shorten build times and decrease load on servers
-    - uses: actions/cache@v1
+    # Build
+    - name: 👷 Build the site in the jekyll container 
+      run: |
+        docker run \
+        -v ${{ github.workspace }}:/srv/jekyll \
+        -v ${{ github.workspace }}/_site:/srv/jekyll/_site \
+        jekyll/builder:latest /bin/bash -c "chmod -R 777 /srv/jekyll &&\
+        jekyll build --future -d build"
+    
+    # Deploy to gh-pages branch
+    - name: 🚀 Deploy to Github Pages
+      uses: JamesIves/github-pages-deploy-action@4.1.4
       with:
-        path: vendor/bundle
-        key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-gems-
-
-    # use jekyll action from jekyll docs example
-    - uses:  helaili/jekyll-action@2.0.2
-      env:
-        JEKYLL_PAT: ${{ secrets.GITHUB_TOKEN }}
-        
-        
+        branch: gh-pages # The branch the action should deploy to.
+        folder: build # The folder the action should deploy.
