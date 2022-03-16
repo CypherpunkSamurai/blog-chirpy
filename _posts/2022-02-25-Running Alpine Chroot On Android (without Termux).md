@@ -222,7 +222,7 @@ Here you can see something you'll be familiar as a linux user. As Common chroot 
 
 and on running it we should get....
 
-![](/assets/img/Running-Alpine-Chroot-On-Android-(without-Termux)_3.png)
+![]("/assets/img/Running-Alpine-Chroot-On-Android-(without-Termux)_3.png")
 
 # Objective Complete!
 
