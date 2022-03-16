@@ -1,31 +1,51 @@
-# Build Jekyll and Deploy to Github Pages
-name: Jekyll site CI
+name: Github Pages
 
 on:
-  workflow_dispatch:
   push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+    branches:
+      - master  # Here source code branch is `master`, it could be other branch
 
 jobs:
-  build:
+  build_and_deploy:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+      - name: 🗳 Checkout Repo
+        uses: actions/checkout@v2
 
-    # Build
-    - name: 👷 Build the site in the jekyll container 
-      run: |
-        docker run \
-        -v ${{ github.workspace }}:/srv/jekyll \
-        -v ${{ github.workspace }}/_site:/srv/jekyll/_site \
-        jekyll/builder:latest /bin/bash -c "chmod -R 777 /srv/jekyll &&\
-        jekyll build --future -d build"
-    
-    # Deploy to gh-pages branch
-    - name: 🚀 Deploy to Github Pages
-      uses: JamesIves/github-pages-deploy-action@4.1.4
-      with:
-        branch: gh-pages # The branch the action should deploy to.
-        folder: build # The folder the action should deploy.
+      # Use GitHub Actions' cache to cache dependencies on servers
+      - name: 📦 Cache Dependencies
+        uses: actions/cache@v1
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gems-
+
+      # Use GitHub Actions' cache to cache dependencies on servers
+      - name: 📥 Install ruby
+        uses: actions/setup-ruby@v1
+        with:
+          ruby-version: 3.0
+
+      - name: 📝 Jekyll publish
+        env:
+          JEKYLL_DESTINATION: gh-pages
+        run: |
+          #sudo apt-get -yqq install libpq-dev
+          #gem install bundle
+          bundle install --path=vendor/bundle --jobs 4
+          bundle clean
+          JEKYLL_ENV=production bundle exec jekyll build --destination $JEKYLL_DESTINATION
+
+      - name: 📤 Push to Repo
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ secrets.GITHUB_REPOSITORY }}
+          GITHUB_ACTOR: ${{ secrets.GITHUB_ACTOR }}
+          JEKYLL_DESTINATION: gh-pages
+        run:  |
+          git config --global user.name "Github Actions"
+          git config --global user.email "test@github.com"
+          git add "$JEKYLL_DESTINATION" && git commit -m "Github Pages Publish"
+          git subtree split --prefix "$JEKYLL_DESTINATION" -b gh-pages
+          git push -f origin gh-pages:gh-pages
