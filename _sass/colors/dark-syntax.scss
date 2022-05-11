@@ -67,6 +67,9 @@
   .highlight .gu { color: #75715e; } /* Generic.Subheading & Diff Unified/Comment? */
   .highlight .gd { color: #f92672; background-color: #561c08; } /* Generic.Deleted & Diff Deleted */
   .highlight .gi { color: #a6e22e; background-color: #0b5858; } /* Generic.Inserted & Diff Inserted */
+  
+  /* -----  my custom styles ----- */
+  .highlight { scrollbar-width: thin; scrollbar-color: var(--code-header-muted-color) var(--highlight-bg-color); } /* thin scrollbar */
 
   /* -----  custom styles ------ */
 
