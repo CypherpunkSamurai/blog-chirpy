@@ -53,7 +53,7 @@ make crackme01
 ```
 
 Great, We now have a crackme to test. Let's run radare2.
-```shel
+```shell
 r2 -AA crackme01
 
 # or radare2 -AA crackme01
@@ -95,7 +95,7 @@ cd r2ghidra
 ```
 
 Now that we have the sources, we need to follow the build instructions. The instructions say we must run these commands in order.
-```shel
+```shell
 ./preconfigure   # optional, but useful for offline-packagers, as its downloads the external repos
 ./configure
 make
@@ -109,7 +109,7 @@ _**Note:** Keep in mind there is a submodule inside the third-party folder. In c
 ### Using `r2ghidra`
 To use r2ghidra we just gotta open a binary, and seek(`s [address/function]`) to the target function / sub. Then use `pdg` command.
 
-```shel
+```shell
 > pd? # gives help output
 > pdg # use ghidra
 ```
