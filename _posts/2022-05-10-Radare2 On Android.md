@@ -1,5 +1,5 @@
 ---
-title: Radare2 On Android
+title: Radare2 On Android 📱
 author: 
   name: Cypherpunk Samurai
   link: https://github.com/CypherpunkSamurai 
