@@ -22,7 +22,8 @@ Radare is a tui based RE tool, and runs in most linux distros. It has a great co
 Radare also supports plugins and most importantly there's a ghidra plugin (which we will be installing in this tutorial later on).  
 
 Termux is a FOSS android proot debian based environment. It supports most android devices, and has a huge repo of tools including gcc, python, rust and... radare2.  
-As a matter of fact, **(SPOILERS)** i've previously used radare2 on android, but i hadn't tried the ghidra plugin yet. This was the right time to try it.  
+
+_As a matter of fact, **(SPOILERS)** i've previously used radare2 on android, but i hadn't tried the ghidra plugin yet. This was the right time to try it._
 
 ### Installing Radadre2
 Installing `radare2` on termux is very easy. Termux repo provides us prebuilt radare2 binaries (thanks termux community) but we can also build it ourselves if we decided to.  
