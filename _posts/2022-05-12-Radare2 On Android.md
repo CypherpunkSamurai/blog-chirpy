@@ -1,10 +1,10 @@
 ---
-title: Radare2 On Android (Termux)
+title: Radare2 On Android
 author: 
   name: Cypherpunk Samurai
   link: https://github.com/CypherpunkSamurai 
-source: _posts/2022-05-12 Radare2 On Android.md
-categories: [ Tutorials ] 
+source: _posts/2022-05-12-Radare2 On Android.md
+categories: [ Tutorials ]
 tags: [ android, termux, re, radare2, reversing, setup, ghidra, decompiler, disassembly ]
 date: 2022-05-12 12:52:04 +0000
 ---
