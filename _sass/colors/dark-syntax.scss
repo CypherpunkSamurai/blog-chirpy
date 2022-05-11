@@ -8,8 +8,8 @@
 @mixin dark-syntax {
   /* syntax highlight colors from https://raw.githubusercontent.com/jwarby/pygments-css/master/monokai.css */
   
-  .highlight pre { line-height: 125%; }
-.highlight .hll { background-color: #ffffcc }
+.highlight pre { background-color: var(--highlight-bg-color); }
+.highlight .hll { background-color: var(--highlight-bg-color); }
 .highlight { background: #282C34; color: #ABB2BF }
 .highlight .c { color: #7F848E } /* Comment */
 .highlight .err { color: #ABB2BF } /* Error */
