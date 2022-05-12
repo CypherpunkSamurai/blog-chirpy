@@ -95,6 +95,11 @@ img.preview-img {
     &.btn-outline-primary.disabled:focus {
       box-shadow: none;
     }
+    
+    &.btn-outline-primary.dropdown-toggle {
+      background-color: #74ce6238;
+      border-color: #7cd76f;
+    }
 
     &::before {
       color: var(--text-muted-color);
